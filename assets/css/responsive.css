@@ -1,5 +1,3 @@
-@media (max-width: 1400px) {
-}
 @media (max-width: 1024px) {
   .category-content h3 {
     font-size: 18px;
@@ -169,7 +167,7 @@
     width: 100%;
   }
   .category-content h3 {
-    font-size: 12px;
+    font-size: 10px;
   }
 
   .icon {
