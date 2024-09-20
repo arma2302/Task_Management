@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Task Management</title>
+    <!-- font awesome -->
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css"
+    />
+    <!-- stylesheet is linkd here -->
+    <link rel="stylesheet" href="assets/css/style.css" />
+    <!-- responsive  stylesheet is linked here-->
+
+    <link rel="stylesheet" href="assets/css/responsive.css" />
+  </head>
+  <body>
+    <!-- header -->
+    <header>
+      <div class="logo">
+        <h2>TaskBoard</h2>
+      </div>
+      <div class="serch-bar">
+        <i class="fa-solid fa-magnifying-glass"></i>
+        <input
+          type="text"
+          id="serach"
+          placeholder="Search Task by title or assignee"
+        />
+      </div>
+      <div class="info">
+        <h2>Arma Shaikh</h2>
+        <div class="profile">
+          <img src="assets/images/profile.jpg" alt="" />
+        </div>
+      </div>
+    </header>
+
+    <!-- container -->
+    <div class="container">
+      <!-- aside bar -->
+      <aside>
+        <div class="sidebar">
+          <ul>
+            <li><i class="fa-solid fa-house"></i>Home</li>
+            <li id="open-modal-btn">
+              <i class="fa-solid fa-pen-to-square"></i>Create a new Task
+            </li>
+          </ul>
+        </div>
+      </aside>
+      <div class="task-wrapper">
+        <h2>All Tasks</h2>
+        <div class="task-category">
+          <div class="priority-task catogary-item">
+            <div class="icon">
+              <i class="fa-solid fa-chart-line"></i>
+            </div>
+            <div class="category-content">
+              <a href="#" id="high" class="category-btn">See Tasks</a>
+              <h3>Priority Tasks</h3>
+            </div>
+          </div>
+          <div class="pending-task catogary-item">
+            <div class="icon">
+              <i class="fa-regular fa-hourglass-half"></i>
+            </div>
+            <div class="category-content">
+              <a href="#" id="pending" class="category-btn">See Tasks</a>
+              <h3>Pending Tasks</h3>
+            </div>
+          </div>
+          <div class="completed-task catogary-item">
+            <div class="icon">
+              <i class="fa-solid fa-calendar-check"></i>
+            </div>
+            <div class="category-content">
+              <a href="#" id="completed" class="category-btn">See Tasks</a>
+              <h3>Completed Tasks</h3>
+            </div>
+          </div>
+        </div>
+        <!-- task display wrapper -->
+        <ul class="task-listing">
+          <!-- task item -->
+        </ul>
+      </div>
+    </div>
+    <!-- modal -->
+    <div class="modal-wrapper">
+      <div class="modal">
+        <form action="">
+          <div>
+            <label for="">Title</label>
+            <input type="text" placeholder="Enter Title" id="title" value="" />
+          </div>
+          <div>
+            <label for="">Description</label>
+            <input
+              type="text"
+              placeholder="Enter Description"
+              id="desc"
+              value=""
+            />
+          </div>
+          <div>
+            <label for="">Date</label>
+            <input type="date" min="2024/12/31" id="date" value="" />
+          </div>
+          <div>
+            <!-- assign to -->
+            <label for="member">select member </label>
+            <select name="" id="member" value="">
+              <option value="">Assign To</option>
+              <option value="member1">Member 1</option>
+              <option value="member2">Member 2</option>
+              <option value="member3">Member 3</option>
+            </select>
+            <!-- task priority -->
+            <label for="priority">select priority</label>
+            <select name="" id="priority" value="">
+              <option value="">set Priority</option>
+              <option value="high">High</option>
+              <option value="medium">Medium</option>
+              <option value="low">Low</option>
+            </select>
+          </div>
+          <button id="addBtn">Add Task</button>
+        </form>
+      </div>
+      <button class="close" id="close-modal-btn">
+        <i class="fa-solid fa-xmark"></i>
+      </button>
+    </div>
+    <!--status modal-->
+    <div class="status-modal">
+      <div class="status-modal-content">
+        <div>
+          <label for="status">Select status for this task</label>
+          <select name="" id="status" value="">
+            <option value="">set status</option>
+            <option value="Pending">Pending</option>
+            <option value="Delayed">Delayed</option>
+            <option value="In-process">In-process</option>
+            <option value="Completed">Completed</option>
+          </select>
+        </div>
+
+        <button id="save-btn">Save</button>
+      </div>
+    </div>
+  </body>
+  <!-- script is linked here -->
+  <script src="assets/js/script1.js"></script>
+</html>

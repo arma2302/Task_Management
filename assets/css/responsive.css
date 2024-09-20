@@ -1,0 +1,113 @@
+@media (max-width: 576px) {
+  header {
+    padding: 12px 20px;
+    position: sticky;
+    top: 0px;
+    z-index: 0;
+  }
+  .info {
+    display: none;
+  }
+  .logo {
+    display: none;
+  }
+  .container {
+    width: 100%;
+    flex-direction: column;
+  }
+  .serch-bar {
+    width: 100%;
+    padding: 8px;
+  }
+
+  .serch-bar i {
+    font-size: 20px;
+  }
+  aside {
+    width: 100%;
+    height: auto;
+    position: static;
+  }
+  .sidebar {
+    height: 30px;
+  }
+  .sidebar ul {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  .sidebar li {
+    width: 47%;
+    padding: 10px;
+    margin-bottom: 0;
+    font-size: 10px;
+  }
+  .sidebar li i {
+    display: none;
+  }
+  .task-wrapper {
+    box-shadow: none;
+    background-color: transparent;
+    padding: 0;
+  }
+  .task-category {
+    flex-wrap: wrap;
+  }
+  .task-details span {
+    font-size: 8px;
+  }
+  .task-item p {
+    font-size: 12px;
+  }
+  .catogary-item {
+    width: 45%;
+  }
+  .catogary-item:nth-last-of-type(3) {
+    width: 100%;
+  }
+  .category-content h3 {
+    font-size: 16px;
+  }
+  .task-item {
+    flex-direction: column;
+    width: 100%;
+    gap: 20px;
+  }
+  .task-details {
+    flex-wrap: wrap;
+  }
+  .icon {
+    display: none;
+  }
+  .action-btns {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 10px;
+  }
+  .action-btns button {
+    width: 80px;
+    font-size: 10px;
+    margin-right: 0;
+  }
+  /* #status-btn {
+    width: 100%;
+  } */
+  .modal-wrapper {
+    padding: 10%;
+    position: absolute;
+    height: 200vh;
+  }
+  .modal {
+    width: 100%;
+    padding: 0;
+  }
+  .close {
+    top: 2%;
+    right: 3%;
+  }
+  form label {
+    font-size: 12px;
+    margin-bottom: 5px;
+  }
+}
