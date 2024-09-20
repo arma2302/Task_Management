@@ -322,3 +322,9 @@ form button {
 .status-modal select:focus {
   outline: none;
 }
+input[type="date"] {
+  display: block;
+  -webkit-appearance: textfield;
+  -moz-appearance: textfield;
+  min-height: 1.2em;
+}
