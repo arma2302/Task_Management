@@ -179,10 +179,14 @@ class TaskManager {
     console.log(alloptions.value);
     const task = this.tasks.find((task) => task.id === id);
     task.status = alloptions.value;
+    alloptions.value == "";
     console.log(task);
+
+    if (alloptions.value.length == 0) {
+      task.status = task.status; // default status
+    }
     localStorage.setItem("task", JSON.stringify(this.tasks));
     this.displayTasks(this.tasks);
-
     let statusModal = document.querySelector(".status-modal");
     statusModal.style.display = "none";
   }
@@ -190,6 +194,24 @@ class TaskManager {
   statusCheck(id) {
     this.openStatusModal();
     this.currentEditId = id;
+  }
+
+  //progressbar
+
+  progress() {
+    let scroll = document.documentElement.scrollTop;
+    console.log(scroll);
+
+    let height =
+      document.documentElement.scrollHeight -
+      document.documentElement.clientHeight;
+    console.log(height);
+
+    let scrollProgress = (scroll / height) * 100;
+    console.log(scrollProgress);
+
+    document.getElementById("scroll-progress").style.width =
+      scrollProgress + "%";
   }
 }
 
@@ -224,4 +246,8 @@ document.querySelectorAll(".category-btn").forEach((btn) => {
 
     taskManager.displayTasksByCategory(category);
   });
+});
+
+window.addEventListener("scroll", () => {
+  taskManager.progress();
 });

@@ -17,6 +17,11 @@
   </head>
   <body>
     <!-- header -->
+
+    <div class="scroll">
+      <div class="scroll-bar" id="scroll-progress"></div>
+    </div>
+
     <header>
       <div class="logo">
         <h2>TaskBoard</h2>
@@ -25,7 +30,7 @@
         <i class="fa-solid fa-magnifying-glass"></i>
         <input
           type="text"
-          id="serach"
+          id="search"
           placeholder="Search Task by title or assignee"
         />
       </div>
@@ -45,7 +50,7 @@
           <ul>
             <li><i class="fa-solid fa-house"></i>Home</li>
             <li id="open-modal-btn">
-              <i class="fa-solid fa-pen-to-square"></i>Create a new Task
+              <i class="fa-solid fa-pen-to-square"></i>Create
             </li>
           </ul>
         </div>
@@ -58,7 +63,7 @@
               <i class="fa-solid fa-chart-line"></i>
             </div>
             <div class="category-content">
-              <a href="#" id="high" class="category-btn">See Tasks</a>
+              <a href="#catogary" id="high" class="category-btn">See Tasks</a>
               <h3>Priority Tasks</h3>
             </div>
           </div>
@@ -67,7 +72,9 @@
               <i class="fa-regular fa-hourglass-half"></i>
             </div>
             <div class="category-content">
-              <a href="#" id="pending" class="category-btn">See Tasks</a>
+              <a href="#catogary" id="pending" class="category-btn"
+                >See Tasks</a
+              >
               <h3>Pending Tasks</h3>
             </div>
           </div>
@@ -76,13 +83,15 @@
               <i class="fa-solid fa-calendar-check"></i>
             </div>
             <div class="category-content">
-              <a href="#" id="completed" class="category-btn">See Tasks</a>
+              <a href="#catogary" id="completed" class="category-btn"
+                >See Tasks</a
+              >
               <h3>Completed Tasks</h3>
             </div>
           </div>
         </div>
         <!-- task display wrapper -->
-        <ul class="task-listing">
+        <ul class="task-listing" id="catogary">
           <!-- task item -->
         </ul>
       </div>
@@ -152,5 +161,5 @@
     </div>
   </body>
   <!-- script is linked here -->
-  <script src="assets/js/script1.js"></script>
+  <script src="assets/js/script.js"></script>
 </html>

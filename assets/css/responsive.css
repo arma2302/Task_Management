@@ -1,3 +1,110 @@
+@media (max-width: 1400px) {
+}
+@media (max-width: 1024px) {
+  .category-content h3 {
+    font-size: 18px;
+  }
+  .logo {
+    width: 14%;
+    font-size: 12px;
+    margin: 0;
+  }
+  h2 {
+    margin: 0;
+  }
+  .list-item {
+    width: 100%;
+  }
+}
+@media (max-width: 992px) {
+  .logo {
+    width: 20%;
+  }
+  .info {
+    gap: 0;
+  }
+  .info h2 {
+    font-size: 16px;
+  }
+  aside {
+    width: 25%;
+  }
+  .task-category {
+    justify-content: space-between;
+  }
+  .catogary-item {
+    width: 36%;
+  }
+  .list-item {
+    width: 100%;
+  }
+}
+@media (max-width: 767px) {
+  header {
+    padding: 12px 20px;
+    position: sticky;
+    top: 0px;
+    z-index: 0;
+  }
+  .info {
+    display: none;
+  }
+  .logo {
+    width: 32%;
+  }
+  .serch-bar {
+    width: 70%;
+  }
+  aside {
+    width: 100%;
+    height: auto;
+    position: static;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  .sidebar {
+    width: 100%;
+  }
+  .sidebar li {
+    width: 50%;
+  }
+  .sidebar ul {
+    display: flex;
+    gap: 20px;
+  }
+
+  .container {
+    flex-direction: column;
+    width: 100%;
+  }
+  .catogary-item {
+    width: 31%;
+  }
+  .category-content h3 {
+    font-size: 15px;
+  }
+  .task-category {
+    justify-content: space-between;
+  }
+
+  .modal {
+    width: 100%;
+  }
+  .modal-wrapper {
+    position: absolute;
+    padding: 20px;
+    height: 200vh;
+  }
+  .close {
+    top: 2%;
+    right: 1%;
+  }
+  .list-item {
+    width: 100%;
+  }
+}
+
 @media (max-width: 576px) {
   header {
     padding: 12px 20px;
@@ -52,44 +159,23 @@
   }
   .task-category {
     flex-wrap: wrap;
+    justify-content: space-between;
   }
-  .task-details span {
-    font-size: 8px;
-  }
-  .task-item p {
-    font-size: 12px;
-  }
+
   .catogary-item {
-    width: 45%;
+    width: 46%;
   }
   .catogary-item:nth-last-of-type(3) {
     width: 100%;
   }
   .category-content h3 {
-    font-size: 16px;
+    font-size: 12px;
   }
-  .task-item {
-    flex-direction: column;
-    width: 100%;
-    gap: 20px;
-  }
-  .task-details {
-    flex-wrap: wrap;
-  }
+
   .icon {
     display: none;
   }
-  .action-btns {
-    display: flex;
-    flex-wrap: wrap;
-    align-items: center;
-    gap: 10px;
-  }
-  .action-btns button {
-    width: 80px;
-    font-size: 10px;
-    margin-right: 0;
-  }
+
   /* #status-btn {
     width: 100%;
   } */
@@ -109,5 +195,24 @@
   form label {
     font-size: 12px;
     margin-bottom: 5px;
+  }
+  .list-item {
+    width: 100%;
+  }
+  .priority {
+    display: none;
+  }
+  .list-title h2 {
+    font-size: 14px;
+  }
+  .list-icon {
+    width: 30px;
+    height: 30px;
+  }
+  .list-icon i {
+    font-size: 12px;
+  }
+  .list-actions-box a {
+    font-size: 13px;
   }
 }
