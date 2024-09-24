@@ -1,43 +1,54 @@
 class TaskManager {
+  //constructor to avoid global variable issues
   constructor() {
     this.tasks = JSON.parse(localStorage.getItem("task")) || [];
+    this.dialog = document.querySelector("dialog");
     this.currentEditId = null;
     this.isOpen = false;
   }
-
-  // Open modal
-  openModal() {
-    this.isOpen = true;
-    document.querySelector(".modal-wrapper").style.display = "block";
+  // to manage the modal box
+  toggleModal(isOpen) {
+    this.isOpen = isOpen;
+    document.querySelector(".modal-wrapper").style.display = isOpen
+      ? "block"
+      : "none";
   }
 
-  // Close modal
+  openModal() {
+    this.toggleModal(true);
+  }
+
   closeModal() {
-    this.isOpen = false;
-    document.querySelector(".modal-wrapper").style.display = "none";
+    this.toggleModal(false);
   }
 
   // Add or edit task
+  // get all the values of input feilds
+  getTaskDetails() {
+    return {
+      title: document.getElementById("title").value.trim(),
+      description: document.getElementById("desc").value.trim(),
+      date: document.getElementById("date").value,
+      priority: document.getElementById("priority").value,
+      member: document.getElementById("member").value.trim(),
+    };
+  }
+  // do check all the values if any of them is not there  then show error message
+  validateTaskDetails({ title, description, date, priority, member }) {
+    return title && description && date && priority && member;
+  }
+
+  // add tasks
   addTask() {
     this.closeModal();
-    const title = document.getElementById("title").value.trim();
-    const description = document.getElementById("desc").value.trim();
-    const date = document.getElementById("date").value;
-    const priority = document.getElementById("priority").value;
-    const member = document.getElementById("member").value.trim();
+    const taskDetails = this.getTaskDetails();
 
-    if (!title || !description || !date || !priority || !member) {
-      alert("All fields are required");
-      return;
-    }
+    if (!this.validateTaskDetails(taskDetails))
+      throw new Error("All fields are required");
 
     const task = {
-      id: this.currentEditId !== null ? this.currentEditId : Date.now(),
-      title,
-      description,
-      date,
-      priority,
-      member,
+      ...taskDetails,
+      id: this.currentEditId || Date.now(),
       status: "Pending",
     };
 
@@ -46,17 +57,25 @@ class TaskManager {
         (task) => task.id === this.currentEditId
       );
       this.tasks[index] = task;
+      // this.updateTask(task);
     } else {
       this.tasks.push(task);
     }
 
-    localStorage.setItem("task", JSON.stringify(this.tasks));
-    document.querySelector("form").reset();
-    this.displayTasks(this.tasks);
-    this.currentEditId = null; // Reset after saving
+    this.saveTasks(); // save the task to local
+    this.displayTasks(this.tasks); // display all the tasks
+    this.resetForm(); // clear all the input fields after task is added
   }
 
-  // Display tasks
+  saveTasks() {
+    localStorage.setItem("task", JSON.stringify(this.tasks));
+  }
+
+  resetForm() {
+    document.querySelector("form").reset();
+    this.currentEditId = null;
+  }
+  //displat tasks
   displayTasks(tasks) {
     const taskContainer = document.querySelector(".task-listing");
     taskContainer.innerHTML = "";
@@ -91,14 +110,17 @@ class TaskManager {
                 >Delete</a
               >
               <a href="#" onclick="taskManager.editTask(${task.id})">Edit</a>
-              <a
-                href="#"
-                id="status-btn"
-                onclick="taskManager.statusCheck(${task.id})"
-                >change status</a
-              >
+          
+            <select name="" id="status" value="" onchange="taskManager.updateStatus(${task.id})">
+            <option value="">Change status</option>
+            <option value="Pending">Pending</option>
+            <option value="Delayed">Delayed</option>
+            <option value="In-process">In-process</option>
+            <option value="Completed">Completed</option>
+          </select>
             </div>
           </li>
+            
         `;
     });
   }
@@ -133,7 +155,7 @@ class TaskManager {
   // Delete task
   deleteTask(id) {
     this.tasks = this.tasks.filter((task) => task.id !== id);
-    localStorage.setItem("task", JSON.stringify(this.tasks));
+    this.saveTasks();
     this.displayTasks(this.tasks);
   }
 
@@ -141,24 +163,24 @@ class TaskManager {
   editTask(id) {
     const task = this.tasks.find((task) => task.id === id);
     if (task) {
-      document.getElementById("title").value = task.title;
-      document.getElementById("desc").value = task.description;
-      document.getElementById("date").value = task.date;
-      document.getElementById("priority").value = task.priority;
-      document.getElementById("member").value = task.member;
-
+      this.fillTaskForm(task);
       this.currentEditId = id;
       this.openModal();
     }
   }
-
+  //fill the form
+  fillTaskForm({ title, description, date, priority, member }) {
+    document.getElementById("title").value = title;
+    document.getElementById("desc").value = description;
+    document.getElementById("date").value = date;
+    document.getElementById("priority").value = priority;
+    document.getElementById("member").value = member;
+  }
   // Search task
   searchTask() {
     const search = document.getElementById("search");
 
     let searchValue = search.value.trim().toLowerCase();
-    console.log(searchValue);
-
     const searchedData = this.tasks.filter(
       (task) =>
         task.title.toLowerCase().includes(searchValue) ||
@@ -174,30 +196,30 @@ class TaskManager {
     document.getElementById("search").value = "";
   }
 
-  // Status modal
-  openStatusModal() {
-    document.querySelector(".status-modal").style.display = "block";
-  }
+  // // Status modal
+  // openStatusModal() {
+  //   document.querySelector(".status-modal").style.display = "block";
+  // }
 
-  closeStatusModal(id) {
-    const allOptions = document.getElementById("status");
+  updateStatus(id) {
+    const statusValue = document.getElementById("status");
     const task = this.tasks.find((task) => task.id === id);
 
-    if (task) {
-      task.status = allOptions.value || task.status; // Update status or keep current
-      localStorage.setItem("task", JSON.stringify(this.tasks));
+    if (task && statusValue.value) {
+      task.status = statusValue.value || task.status; // Update status or keep current
+      this.saveTasks();
       this.displayTasks(this.tasks);
     }
 
-    allOptions.value = ""; // Clear selection
+    statusValue.value = ""; // Clear selection
     document.querySelector(".status-modal").style.display = "none";
   }
 
   // Status check
-  statusCheck(id) {
-    this.openStatusModal();
-    this.currentEditId = id;
-  }
+  // statusCheck(id) {
+  //   this.openStatusModal();
+  //   this.currentEditId = id;
+  // }
 
   // Progress bar
   progress() {
@@ -210,6 +232,72 @@ class TaskManager {
     document.getElementById(
       "scroll-progress"
     ).style.width = `${scrollProgress}%`;
+  }
+
+  //single member task list
+  singleMemberTask(memberName) {
+    let membetListContainer = document.querySelector(".member-task");
+    membetListContainer.innerHTML = "";
+    const memberTasks = this.tasks.filter((task) => task.member === memberName);
+    console.log(memberTasks);
+
+    membetListContainer.innerHTML += `<h2>Total ${memberTasks.length} Task assigned to ${memberName}</h2>
+    <div><p id="list">Click here to see the list</p> <p class="close-list">close</p> </div>`;
+
+    if (memberTasks.length == 0) {
+      membetListContainer.innerHTML = "<h2>No Task assigned yet</h2>";
+    }
+
+    document.getElementById("list").addEventListener("click", () => {
+      document.getElementById("list").style.display = "none";
+      this.displayMemberTask(memberTasks);
+    });
+  }
+
+  displayMemberTask(task) {
+    let taskBox = document.querySelector(".member-task");
+    let table = document.createElement("table");
+    console.log(taskBox);
+
+    console.log(task);
+    task.forEach((singleTask) => {
+      table.innerHTML += `<tr><td>Title:${singleTask.title}</td>
+      <td>status:${singleTask.status}</td><td onclick="taskManager.memberTaskDetails(${singleTask.id})">more details</td></tr></>`;
+    });
+    taskBox.appendChild(table);
+    document.querySelector(".close-list").addEventListener("click", () => {
+      taskBox.innerHTML = "";
+    });
+  }
+  memberTaskDetails(taskId) {
+    this.dialog.showModal();
+    let taskDetails = this.tasks.find((task) => task.id === taskId);
+    this.dialog.innerHTML = `
+    <p><span>Title </span>${taskDetails.title}</p>
+    <p><span>Details </span>${taskDetails.description}</p>
+    <p><span>status </span>${taskDetails.status}</p>
+    <p><span>priority </span>${taskDetails.priority}</p>
+    <div><button onclick="taskManager.closeDailoge()">Close</button></div>
+`;
+  }
+
+  closeDailoge() {
+    this.dialog.close();
+  }
+
+  filterTask() {
+    let filterdVal = document.getElementById("filter");
+
+    let filetrData = this.tasks.filter((task) =>
+      task.status.includes(filterdVal.value)
+    );
+    if (filetrData.length > 0) {
+      this.displayTasks(filetrData);
+    } else {
+      alert(`No ${filterdVal.value} Task Found`);
+      this.displayTasks(this.tasks);
+    }
+    filterdVal.value = "";
   }
 }
 
@@ -227,18 +315,18 @@ document.getElementById("close-modal-btn").addEventListener("click", () => {
 
 document.getElementById("open-modal-btn").addEventListener("click", () => {
   taskManager.openModal();
+  console.log("helo");
 });
 
-document.getElementById("save-btn").addEventListener("click", () => {
-  taskManager.closeStatusModal(taskManager.currentEditId);
-});
+// document.getElementById("save-btn").addEventListener("click", () => {
+//   taskManager.updateStatus(taskManager.currentEditId);
+// });
 
 window.addEventListener("keypress", (e) => {
   if (e.key === "Enter") {
     taskManager.searchTask();
   }
 });
-
 document.querySelectorAll(".category-btn").forEach((btn) => {
   btn.addEventListener("click", (e) => {
     const category = e.target.id;
@@ -246,6 +334,17 @@ document.querySelectorAll(".category-btn").forEach((btn) => {
   });
 });
 
+document.querySelectorAll(".member").forEach((member) => {
+  member.addEventListener("click", (e) => {
+    const name = e.target.id;
+    taskManager.singleMemberTask(name);
+    console.log("helo");
+  });
+});
+
+document.getElementById("filter").addEventListener("change", () => {
+  taskManager.filterTask();
+});
 window.addEventListener("scroll", () => {
   taskManager.progress();
 });

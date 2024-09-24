@@ -24,16 +24,18 @@ h2 {
   margin: 10px;
 }
 .container {
-  display: flex;
   padding: 0 20px;
   margin: 0 auto;
+}
+.main {
+  display: flex;
   gap: 25px;
 }
 aside {
   width: 16%;
-  height: 100vh;
+  height: 100%;
   position: sticky;
-  top: 10px;
+  top: 0px;
   padding: 20px;
   background-color: #fff;
   border-radius: 20px;
@@ -360,4 +362,131 @@ form button {
 .priority p {
   font-weight: 900;
   opacity: 0.5;
+}
+::backdrop {
+  background-color: #8d99ae;
+  opacity: 0.75;
+}
+dialog {
+  width: 500px;
+  margin: 10% auto;
+  border: none;
+  padding: 20px;
+  border-radius: 12px;
+}
+dialog span {
+  font-size: 20px;
+  background-color: #95cfff;
+}
+dialog p {
+  font-size: 28px;
+  margin-bottom: 20px;
+}
+dialog button {
+  padding: 10px;
+  border: none;
+  background-color: #222;
+  width: 100%;
+  color: white;
+  border-radius: 12px;
+}
+.team-members {
+  background-color: #ffff;
+  padding: 20px;
+  border-radius: 12px;
+  box-shadow: rgba(50, 50, 105, 0.15) 0px 2px 5px 0px,
+    rgba(0, 0, 0, 0.05) 0px 1px 1px 0px;
+  /* margin: 20px 0; */
+  width: 85%;
+  margin: 20px 0 0 auto;
+}
+.team-members > p {
+  color: #e62f8a;
+  opacity: 0.5;
+  font-weight: 700;
+  font-size: 20px;
+  margin: 10px;
+}
+.team-members ul {
+  display: flex;
+  /* padding: 20px; */
+  gap: 20px;
+  list-style-type: none;
+  text-align: center;
+}
+.team-members ul li {
+  font-size: 24px;
+  cursor: pointer;
+  width: 200px;
+  background-color: #8d99ae11;
+  padding: 10px;
+  border-radius: 12px;
+  box-shadow: -5px -5px 9px rgba(255, 255, 255, 0.45),
+    5px 5px 9px rgba(94, 104, 121, 0.3);
+}
+.member-task {
+  margin: 30px 0;
+  background-color: #8d99ae11;
+  padding: 20px;
+  border-radius: 12px;
+}
+.member-task > div {
+  display: flex;
+  justify-content: space-between;
+}
+.member-task > div > p {
+  font-size: 18px;
+  color: #023fc2;
+  padding: 15px;
+  cursor: pointer;
+}
+.member-task table {
+  width: 100%;
+  border-radius: 12px;
+  /* border: 2px solid #ff95b5; */
+}
+td,
+tr {
+  padding: 10px;
+  font-size: 20px;
+  font-weight: 700;
+  background-color: #fff;
+}
+tbody {
+  border-radius: 12px;
+  border-radius: 12px;
+  margin-top: 20px;
+}
+.close-list {
+  margin-left: auto;
+}
+.member-task h2 {
+  font-size: 18px;
+}
+.menu {
+  display: flex;
+  gap: 20px;
+  align-items: center;
+  margin-bottom: 10px;
+}
+.menu select {
+  margin: 0;
+  padding: 10px;
+  font-size: 20px;
+  border: none;
+  background-color: transparent;
+}
+.menu select:focus {
+  outline: none;
+}
+
+.list-actions-box select {
+  background-color: transparent;
+  font-size: 20px;
+  text-decoration: none;
+  font-weight: 900;
+  color: rgb(0, 0, 0);
+  border: none;
+  outline: none;
+  margin: 0;
 }
