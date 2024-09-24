@@ -258,4 +258,10 @@
   tr {
     font-size: 15px;
   }
+  .menu h2 {
+    font-size: 12px;
+  }
+  .menu select {
+    font-size: 12px;
+  }
 }
