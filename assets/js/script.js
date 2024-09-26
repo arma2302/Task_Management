@@ -20,6 +20,7 @@ class TaskManager {
 
   closeModal() {
     this.toggleModal(false);
+    this.resetForm();
   }
 
   // Add or edit task
@@ -33,37 +34,76 @@ class TaskManager {
       member: document.getElementById("member").value.trim(),
     };
   }
-  // do check all the values if any of them is not there  then show error message
+
   validateTaskDetails({ title, description, date, priority, member }) {
-    return title && description && date && priority && member;
+    const errors = {};
+
+    if (!title) {
+      errors.title = "Title is required.";
+    }
+    if (!description) {
+      errors.desc = "Description is required.";
+    }
+    if (!date) {
+      errors.date = "Date is required.";
+    }
+    if (!priority) {
+      errors.priority = "Priority is required.";
+    }
+    if (!member) {
+      errors.member = "Member is required.";
+    }
+
+    return {
+      isValid: Object.keys(errors).length === 0,
+      errors,
+    };
   }
-
+  //display errors
+  displayErrors(errors) {
+    Object.keys(errors).forEach((field) => {
+      document.getElementById(`${field}Error`).innerText = errors[field];
+    });
+  }
   // add tasks
-  addTask() {
-    this.closeModal();
+  addTask(e) {
+    e.preventDefault();
     const taskDetails = this.getTaskDetails();
+    //validate all the input values
+    const { isValid, errors } = this.validateTaskDetails(taskDetails);
+    if (!isValid) {
+      this.displayErrors(errors);
+      return;
+    }
 
-    if (!this.validateTaskDetails(taskDetails))
-      throw new Error("All fields are required");
+    // Clear previous error messages since validation passed
+    const errorFields = ["title", "desc", "date", "priority", "member"];
+    errorFields.forEach((field) => {
+      document.getElementById(`${field}Error`).textContent = ""; // Clear error messages
+    });
 
+    // create object for task
     const task = {
       ...taskDetails,
       id: this.currentEditId || Date.now(),
       status: "Pending",
     };
-
+    // update the task if there is any
     if (this.currentEditId !== null) {
       const index = this.tasks.findIndex(
         (task) => task.id === this.currentEditId
       );
       this.tasks[index] = task;
-      // this.updateTask(task);
     } else {
+      // push the task to array
       this.tasks.push(task);
     }
-
-    this.saveTasks(); // save the task to local
-    this.displayTasks(this.tasks); // display all the tasks
+    // save rhe task to local
+    this.saveTasks();
+    //close the modal
+    this.closeModal();
+    // display all the tasks
+    this.displayTasks(this.tasks);
     this.resetForm(); // clear all the input fields after task is added
   }
 
@@ -196,11 +236,6 @@ class TaskManager {
     document.getElementById("search").value = "";
   }
 
-  // // Status modal
-  // openStatusModal() {
-  //   document.querySelector(".status-modal").style.display = "block";
-  // }
-
   updateStatus(id) {
     const statusValue = document.getElementById("status");
     const task = this.tasks.find((task) => task.id === id);
@@ -214,12 +249,6 @@ class TaskManager {
     statusValue.value = ""; // Clear selection
     document.querySelector(".status-modal").style.display = "none";
   }
-
-  // Status check
-  // statusCheck(id) {
-  //   this.openStatusModal();
-  //   this.currentEditId = id;
-  // }
 
   // Progress bar
   progress() {
@@ -306,7 +335,7 @@ taskManager.displayTasks(taskManager.tasks);
 
 // Event listeners
 document.getElementById("addBtn").addEventListener("click", () => {
-  taskManager.addTask();
+  taskManager.addTask(event);
 });
 
 document.getElementById("close-modal-btn").addEventListener("click", () => {
@@ -317,10 +346,6 @@ document.getElementById("open-modal-btn").addEventListener("click", () => {
   taskManager.openModal();
   console.log("helo");
 });
-
-// document.getElementById("save-btn").addEventListener("click", () => {
-//   taskManager.updateStatus(taskManager.currentEditId);
-// });
 
 window.addEventListener("keypress", (e) => {
   if (e.key === "Enter") {

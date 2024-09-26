@@ -134,7 +134,14 @@
         <form action="">
           <div>
             <label for="">Title</label>
-            <input type="text" placeholder="Enter Title" id="title" value="" />
+            <input
+              type="text"
+              placeholder="Enter Title"
+              id="title"
+              value=""
+              class="formInp"
+            />
+            <span class="error" id="titleError"></span>
           </div>
           <div>
             <label for="">Description</label>
@@ -143,29 +150,41 @@
               placeholder="Enter Description"
               id="desc"
               value=""
+              class="formInp"
             />
+            <span class="error" id="descError"></span>
           </div>
           <div>
             <label for="">Date</label>
-            <input type="date" min="2024/12/31" id="date" value="" />
+            <input
+              type="date"
+              min="2024/12/31"
+              id="date"
+              value=""
+              class="formInp"
+            />
+            <span class="error" id="dateError"></span>
           </div>
           <div>
             <!-- assign to -->
             <label for="member">select member </label>
-            <select name="" id="member" value="">
+            <select name="" id="member" value="" class="formInp">
               <option value="">Assign To</option>
               <option value="member1">Member 1</option>
               <option value="member2">Member 2</option>
               <option value="member3">Member 3</option>
             </select>
+            <span class="error" id="memberError"></span>
+
             <!-- task priority -->
             <label for="priority">select priority</label>
-            <select name="" id="priority" value="">
+            <select name="" id="priority" value="" class="formInp">
               <option value="">set Priority</option>
               <option value="high">High</option>
               <option value="medium">Medium</option>
               <option value="low">Low</option>
             </select>
+            <span class="error" id="priorityError"></span>
           </div>
           <button id="addBtn">Add Task</button>
         </form>

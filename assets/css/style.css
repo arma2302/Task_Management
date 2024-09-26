@@ -490,3 +490,10 @@ tbody {
   outline: none;
   margin: 0;
 }
+.error {
+  color: #bb0505;
+  font-size: 14px;
+  font-weight: 700;
+  width: 100%;
+  text-align: right;
+}
