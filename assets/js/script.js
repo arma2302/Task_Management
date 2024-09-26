@@ -40,18 +40,33 @@ class TaskManager {
 
     if (!title) {
       errors.title = "Title is required.";
+    } else {
+      errors.title = "";
     }
+    /////
+
     if (!description) {
       errors.desc = "Description is required.";
+    } else {
+      errors.desc = "";
     }
+    ///
     if (!date) {
       errors.date = "Date is required.";
+    } else {
+      errors.date = "";
     }
+    ///
     if (!priority) {
       errors.priority = "Priority is required.";
+    } else {
+      errors.priority = "";
     }
+    ///
     if (!member) {
       errors.member = "Member is required.";
+    } else {
+      errors.member = "";
     }
 
     return {
@@ -65,6 +80,7 @@ class TaskManager {
       document.getElementById(`${field}Error`).innerText = errors[field];
     });
   }
+
   // add tasks
   addTask(e) {
     e.preventDefault();
