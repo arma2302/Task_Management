@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Member1</title>
+    <link rel="stylesheet" href="assets/css/style.css" />
+    <link rel="stylesheet" href="assets/css/responsive.css" />
+  </head>
+  <body>
+    <div class="member-task">
+      <table class="list-table"></table>
+    </div>
+    <dialog></dialog>
+    <script src="assets/js/script.js"></script>
+    <script>
+      const params = new URLSearchParams(window.location.search);
+      const memberName = params.get("member");
+      if (memberName) {
+        taskManager.singleMemberTask(memberName);
+      }
+      console.log("helo");
+    </script>
+  </body>
+</html>

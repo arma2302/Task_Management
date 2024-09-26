@@ -281,6 +281,8 @@ class TaskManager {
 
   //single member task list
   singleMemberTask(memberName) {
+    console.log("new page");
+
     let membetListContainer = document.querySelector(".member-task");
     membetListContainer.innerHTML = "";
     const memberTasks = this.tasks.filter((task) => task.member === memberName);
@@ -297,6 +299,9 @@ class TaskManager {
       document.getElementById("list").style.display = "none";
       this.displayMemberTask(memberTasks);
     });
+    document.querySelector(".close-list").addEventListener("click", () => {
+      window.location = "index.html";
+    });
   }
 
   displayMemberTask(task) {
@@ -311,7 +316,7 @@ class TaskManager {
     });
     taskBox.appendChild(table);
     document.querySelector(".close-list").addEventListener("click", () => {
-      taskBox.innerHTML = "";
+      window.location = "index.html";
     });
   }
   memberTaskDetails(taskId) {
@@ -378,7 +383,11 @@ document.querySelectorAll(".category-btn").forEach((btn) => {
 document.querySelectorAll(".member").forEach((member) => {
   member.addEventListener("click", (e) => {
     const name = e.target.id;
-    taskManager.singleMemberTask(name);
+
+    // window.location = `${name}.html`; // Redirect to the member's page
+    if (name) {
+      window.location = `member.html?member=${name}`; // Pass name as a query parameter
+    }
     console.log("helo");
   });
 });
